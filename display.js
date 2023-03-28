@@ -5,13 +5,13 @@ function display(graphTab, chemin){
         let y = position["y"];
 
         if (i == 0){
-            graphTab[x][y] = "🤢";
+            graphTab[x][y] = symboleChemin;
         }
         else if (i == taille(chemin) - 1){
-            graphTab[x][y] = "🤬";
+            graphTab[x][y] = symboleChemin;
         }
         else {
-            graphTab[x][y] = "😈";
+            graphTab[x][y] = symboleChemin;
         }
     }
 

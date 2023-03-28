@@ -15,11 +15,6 @@ function findPathRecursive(graphTab, current, end){
         afficher("Destination: X = " + current["x"] + " : Y = " + current["y"]);
     } else {
         let newCurrent = prochainePositionXY(graphTab, current, end);
-        if (newCurrent == false)
-            newCurrent = prochainePositionYX(graphTab, current, end);
-        if (newCurrent == false)
-            return resultPath;
-
         resultPath[taille(resultPath)] = newCurrent;
         findPathRecursive(graphTab, newCurrent, end);
     }
@@ -42,18 +37,18 @@ function prochainePositionXY(graphTab, current, end){
     if (result["x"] != end["x"]){
         switchXY = false;
         if (result["x"] > end["x"]){
-            // Si c'est pas un obstacle, on se déplace sur ce chemin
-            if ((graphTab[result["x"] - 1][result["y"]]) != OBSTACLE){
+            // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
+            if ((graphTab[result["x"] - 1][result["y"]]) != symboleObstacle){
                 result["x"] = result["x"] - 1;
-            // Si c'est un obstacle, on essayera une position par Y
+            // Si c'est un symboleObstacle, on essayera une position par Y
             } else { 
                 switchXY = true;
             }
         } else {
-            // Si c'est pas un obstacle, on se déplace sur ce chemin
-            if ((graphTab[result["x"] + 1][result["y"]]) != OBSTACLE){
+            // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
+            if ((graphTab[result["x"] + 1][result["y"]]) != symboleObstacle){
                 result["x"] = result["x"] + 1;
-            // Si c'est un obstacle, on essayera une position par Y
+            // Si c'est un symboleObstacle, on essayera une position par Y
             } else {
                 switchXY = true;
             }
@@ -62,15 +57,15 @@ function prochainePositionXY(graphTab, current, end){
     // Rapprocher la position actuelle de y, si c'est pas la bonne
     if (result["y"] != end["y"] && switchXY){
         if (result["y"] > end["y"]){
-            // Si c'est pas un obstacle, on se déplace sur ce chemin
-            if ((graphTab[result["x"]][result["y"] - 1]) != OBSTACLE){
+            // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
+            if ((graphTab[result["x"]][result["y"] - 1]) != symboleObstacle){
                 result["y"] = result["y"] - 1;
             } else {
                 return false;
             }
         } else {
-            // Si c'est pas un obstacle, on se déplace sur ce chemin
-            if ((graphTab[result["x"]][result["y"] + 1]) != OBSTACLE){
+            // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
+            if ((graphTab[result["x"]][result["y"] + 1]) != symboleObstacle){
                 result["y"] = result["y"] + 1;
             } else {
                 return false;

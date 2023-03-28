@@ -1,11 +1,15 @@
-var OBSTACLE = "🥷";
+var symboleCase     = "0";// "&#x2610;";
+var symboleObstacle = "Z";// "&#x25A0;";
+var symboleDepart   = "D";// "&#x1F22F;";
+var symboleArriver  = "A";// "&#x1F232;";
+var symboleChemin   = "&#x1F201;";
 
 let graphTab = [
-    ["D", "🥷", "A", "🥷", "🥷"],
-    ["0", "0", "0", "🥷", "🥷"],
-    ["🥷", "🥷", "🥷", "🥷", "🥷"],
-    ["🥷", "🥷", "🥷", "🥷", "🥷"],
-    ["🥷", "🥷", "🥷", "🥷", "🥷"],
+    [symboleArriver, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
+    [symboleCase, symboleCase, symboleDepart, symboleObstacle, symboleObstacle],
+    [symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
+    [symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
+    [symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
 ];
 
 function findCharPos(graphTab, char){
@@ -35,4 +39,4 @@ function init(graphTab, start, end){
     display(graphTab, chemin);
 }
 
-init(graphTab, "D", "A");
+init(graphTab, symboleDepart, symboleArriver);
