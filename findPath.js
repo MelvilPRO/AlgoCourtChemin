@@ -14,7 +14,12 @@ function findPathRecursive(graphTab, current, end){
         afficher("Le chemin a été trouvé car la position actuelle est la même que celle d'arrivée");
         afficher("Destination: X = " + current["x"] + " : Y = " + current["y"]);
     } else {
-        let newCurrent = prochainePositionXY(graphTab, current, end);
+        let newCurrent = prochainePositionX(graphTab, current, end);
+        if (newCurrent == false){
+            newCurrent = prochainePositionY(graphTab, current, end);
+        }
+
+        if (newCurrent == false) return false;
         resultPath[taille(resultPath)] = newCurrent;
         findPathRecursive(graphTab, newCurrent, end);
     }
@@ -22,7 +27,7 @@ function findPathRecursive(graphTab, current, end){
     return resultPath;
 }
 
-function prochainePositionXY(graphTab, current, end){
+function prochainePositionX(graphTab, current, end){
     // current : position de départ ou actuelle
     // end     : position d'arrivée
 
@@ -31,31 +36,43 @@ function prochainePositionXY(graphTab, current, end){
     result["x"] = current["x"];
     result["y"] = current["y"];
 
-    // Rapprocher la position actuelle de x, si c'est pas la bonne
-    // Pour tenter par Y si aucune position par X n'est valable
-    let switchXY = true;
+    // Rapprocher la position actuelle de x, si c'est pas celle d'arrivéeé
     if (result["x"] != end["x"]){
-        switchXY = false;
+        // Vérifier de quel sens il faut se rapprocher
         if (result["x"] > end["x"]){
             // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
             if ((graphTab[result["x"] - 1][result["y"]]) != symboleObstacle){
                 result["x"] = result["x"] - 1;
-            // Si c'est un symboleObstacle, on essayera une position par Y
+            // Si c'est un symboleObstacle, on retourne false
             } else { 
-                switchXY = true;
+                return false;
             }
         } else {
             // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
             if ((graphTab[result["x"] + 1][result["y"]]) != symboleObstacle){
                 result["x"] = result["x"] + 1;
-            // Si c'est un symboleObstacle, on essayera une position par Y
+            // Si c'est un symboleObstacle, on retourne false
             } else {
-                switchXY = true;
+                return false;
             }
         }
     } 
-    // Rapprocher la position actuelle de y, si c'est pas la bonne
-    if (result["y"] != end["y"] && switchXY){
+
+    return result;
+}
+
+function prochainePositionY(graphTab, current, end){
+    // current : position de départ ou actuelle
+    // end     : position d'arrivée
+
+    // On copie l'intégralité pour éviter des conflits
+    let result = {"x": 0, "y": 0};
+    result["x"] = current["x"];
+    result["y"] = current["y"];
+
+    // Rapprocher la position actuelle de y, si c'est pas celle d'arrivée
+    if (result["y"] != end["y"]){
+        // Vérifier de quel sens il faut se rapprocher
         if (result["y"] > end["y"]){
             // Si c'est pas un symboleObstacle, on se déplace sur ce chemin
             if ((graphTab[result["x"]][result["y"] - 1]) != symboleObstacle){
