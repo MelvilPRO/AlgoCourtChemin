@@ -21,7 +21,13 @@ function findPathRecursive(graphTab, current, end){
 
         if (newCurrent == false) return false;
         resultPath[taille(resultPath)] = newCurrent;
-        findPathRecursive(graphTab, newCurrent, end);
+        // Ici, nous pouvons gérer les culs-de-sac grace à la récursion
+        // Nous avons la possibilité de revenir en arrière
+        // Dans le cas d'un cul-de-sac, on effectue l'action dans le bloc
+        if (findPathRecursive(graphTab, newCurrent, end) == false){
+            return false;
+        }
+        
     }
 
     return resultPath;
@@ -32,10 +38,7 @@ function prochainePositionX(graphTab, current, end){
     // end     : position d'arrivée
 
     // On copie l'intégralité pour éviter des conflits
-    let result = {"x": 0, "y": 0};
-    result["x"] = current["x"];
-    result["y"] = current["y"];
-
+    let result = {"x": current["x"], "y": current["y"]};
     // Rapprocher la position actuelle de x, si c'est pas celle d'arrivéeé
     if (result["x"] != end["x"]){
         // Vérifier de quel sens il faut se rapprocher
@@ -58,6 +61,10 @@ function prochainePositionX(graphTab, current, end){
         }
     } 
 
+    // Si c'est la même position d'origine, on retourne false
+    if (current["x"] == result["x"]){
+        return false;
+    }
     return result;
 }
 
@@ -66,10 +73,7 @@ function prochainePositionY(graphTab, current, end){
     // end     : position d'arrivée
 
     // On copie l'intégralité pour éviter des conflits
-    let result = {"x": 0, "y": 0};
-    result["x"] = current["x"];
-    result["y"] = current["y"];
-
+    let result = {"x": current["x"], "y": current["y"]};
     // Rapprocher la position actuelle de y, si c'est pas celle d'arrivée
     if (result["y"] != end["y"]){
         // Vérifier de quel sens il faut se rapprocher
@@ -90,5 +94,9 @@ function prochainePositionY(graphTab, current, end){
         }
     }
 
+    // Si c'est la même position d'origine, on retourne false
+    if (current["y"] == result["y"]){
+        return false;
+    }
     return result;
 }

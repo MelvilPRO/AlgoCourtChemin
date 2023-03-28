@@ -5,8 +5,8 @@ var symboleArriver  = "A";// "&#x1F232;";
 var symboleChemin   = "&#x1F201;";
 
 let graphTab = [
-    [symboleArriver, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
-    [symboleCase, symboleCase, symboleDepart, symboleObstacle, symboleObstacle],
+    [symboleArriver, symboleObstacle, symboleCase, symboleCase, symboleCase],
+    [symboleCase, symboleCase, symboleCase, symboleObstacle, symboleDepart],
     [symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
     [symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
     [symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle, symboleObstacle],
